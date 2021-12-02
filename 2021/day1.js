@@ -2,10 +2,21 @@ const input1 = [132,146,153,175,180,160,154,160,161,160,161,169,161,164,166,196,
 
 const countIncreases = (input) => {
   let counter = 0
-  for (let i = 1; i < input.length; i++) {
-    if (input[i] > input[i - 1]) counter++
+  for (let i = 0; i < input.length - 3; i++) {
+    const sumA = sumElementsOfArray(input, i, 3)
+    const sumB = sumElementsOfArray(input, i + 1, 3)
+    if (sumB > sumA) counter++
   }
   return counter
+}
+
+const sumElementsOfArray = (array, startIndex, numberOfElements) => {
+  const endIndex = startIndex + numberOfElements
+  let sum = 0
+  for (let i = startIndex; i < endIndex; i++) {
+    sum += array[i]
+  }
+  return sum
 }
 
 console.log(countIncreases(input1))
