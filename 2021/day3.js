@@ -4,5 +4,15 @@ const input1 = ['111011110101','011000111010','100000010010','000111100110','110
 // epsilon = least common bit
 
 const countBitsInEachIndex = (input) => {
-  
+  const length = input.length
+  const bitCount = {}
+  for (const binary of input) {
+    for (let i = 0; i < binary.length; i++) {
+      const bit = Number(binary[i])
+      bitCount[i] = bitCount[i] + bit || bit
+    }
+  }
+  return bitCount
 }
+
+console.log(countBitsInEachIndex(input1))
