@@ -4,8 +4,8 @@ const input1 = ['111011110101','011000111010','100000010010','000111100110','110
 // epsilon = least common bit
 
 const countBitsInEachIndex = (input) => {
-  const length = input.length
-  const bitCount = {}
+  const bitCount = []
+  bitCount.inputLength = input.length
   for (const binary of input) {
     for (let i = 0; i < binary.length; i++) {
       const bit = Number(binary[i])
@@ -15,4 +15,22 @@ const countBitsInEachIndex = (input) => {
   return bitCount
 }
 
-console.log(countBitsInEachIndex(input1))
+const assignGammaAndEpsilon = (bitCounts) => {
+  let gamma = ''
+  let epsilon = ''
+  const halfway = bitCounts.inputLength / 2
+  for (let i = 0; i < bitCounts.length; i++) {
+    if (bitCounts[i] > halfway) {
+      gamma += '1'
+      epsilon += '0'
+    } else {
+      gamma += '0'
+      epsilon += '1'
+    }
+  }
+  return [gamma, epsilon]
+}
+
+
+
+console.log(assignGammaAndEpsilon(countBitsInEachIndex(input1)))
