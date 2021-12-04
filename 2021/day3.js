@@ -35,4 +35,57 @@ const decimalProductOfGammaAndEpsilon = (inputArray) => {
   return parseInt(inputArray[0], 2) * parseInt(inputArray[1], 2)
 }
 
-console.log(decimalProductOfGammaAndEpsilon(assignGammaAndEpsilon(countBitsInEachIndex(input1))))
+/***************PART 2***********************/
+
+const determineBitCountAtIndex = (inputArray, index) => {
+  let zeros = 0
+  let ones = 0
+  for (const binary of inputArray) {
+    if (binary.charAt(index) === '0') {
+      zeros++
+    } else {
+      ones++
+    }
+  }
+  return [zeros, ones]
+}
+
+const determineArrayMeetingOxygenCriteria = (inputArray, index, bitCount) => {
+  const match = bitCount[0] > bitCount[1] ? '0' : '1'
+  const meetsBitCriteria = []
+  for (const binary of inputArray) {
+    if (binary[index] === match) meetsBitCriteria.push(binary)
+  }
+  return meetsBitCriteria
+}
+
+const determineArrayMeetingCarbonCriteria = (inputArray, index, bitCount) => {
+  const match = bitCount[0] > bitCount[1] ? '1' : '0'
+  const meetsBitCriteria = []
+  for (const binary of inputArray) {
+    if (binary[index] === match) meetsBitCriteria.push(binary)
+  }
+  return meetsBitCriteria
+}
+
+const determineRatings = (inputArray) => {
+  const binaryLength = inputArray[0].length
+  let parsedOxygenArray = inputArray.slice()
+  let parsedCarbonArray = inputArray.slice()
+  let oxygenRating, carbonRating
+  for (let i = 0; i < binaryLength; i++) {
+    const oxygenBitCount = determineBitCountAtIndex(parsedOxygenArray, i)
+    const carbonBitCount = determineBitCountAtIndex(parsedCarbonArray, i)
+    parsedOxygenArray = determineArrayMeetingOxygenCriteria(parsedOxygenArray, i, oxygenBitCount)
+    parsedCarbonArray = determineArrayMeetingCarbonCriteria(parsedCarbonArray, i, carbonBitCount)
+    if (parsedOxygenArray.length === 1) oxygenRating = parsedOxygenArray[0]
+    if (parsedCarbonArray.length === 1) carbonRating = parsedCarbonArray[0]
+  }
+  return [oxygenRating, carbonRating]
+}
+
+const productOfRatings = (ratings) => {
+  return parseInt(ratings[0], 2) * parseInt(ratings[1], 2)
+}
+
+console.log(productOfRatings(determineRatings(input1)))
