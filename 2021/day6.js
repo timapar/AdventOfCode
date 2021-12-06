@@ -43,5 +43,5 @@ function formatFishInput (inputArray) {
   return fishAsObject
 }
 
-console.log(determineNumberOfFishAfterNDays(collectionOfFish, 80))
-console.log('total number of fish:', countFishInCollection(determineNumberOfFishAfterNDays(collectionOfFish, 80)))
+// console.log(determineNumberOfFishAfterNDays(collectionOfFish, 256))
+console.log('total number of fish:', countFishInCollection(determineNumberOfFishAfterNDays(collectionOfFish, 256)))
